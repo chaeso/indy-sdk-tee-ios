@@ -127,11 +127,23 @@ const void secure_enclave_keygen() {
 
     indy_handle_t handle = 1;
 
+    CFTimeInterval startTime = CACurrentMediaTime();
+
     indy_error_t ret = indy_create_wallet(handle,
             [config UTF8String],
             [credentials UTF8String],
             handle_result
     );
+    
+    ret = indy_open_wallet(handle,
+            [config UTF8String],
+            [credentials UTF8String],
+            handle_result
+    );
+    
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+
+    NSLog(@"timeInterval = %d", elapsedTime);
 
     [super viewDidLoad];
     
